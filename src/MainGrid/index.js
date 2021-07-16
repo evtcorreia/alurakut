@@ -5,12 +5,9 @@ const MainGrid = styled.main `
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  max-width: 500px;  
-  display: grid;
+  max-width: 500px; 
   grid-gap: 10px;
   padding: 16px;
-  back
-  
 
   .profileArea
   {

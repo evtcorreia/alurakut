@@ -5,10 +5,7 @@ import Box from '../src/Box';
 import {AlurakutMenu, OrkutNostalgicIconSet} from '../src/lib/AlurakutCommons'
 import { ProfileRelationsBoxWrapper } from '../src/ProfileRelations';
 
-/* const Title = styled.h1`
-  font-size: 50px;
-  color: ${({ theme }) => theme.colors.primary};
-` */
+
 
 function ProfileSideBar(props)
 {
@@ -40,7 +37,8 @@ export default function Home() {
     return ( 
       <>
         <AlurakutMenu/>
-    
+
+        <hr/>
         <MainGrid >
 
         <div className = "profileArea"style = {{ gridArea: 'profileArea' }}>
