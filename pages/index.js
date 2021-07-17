@@ -33,7 +33,38 @@ function ProfileSideBar(props)
   )
 }
 
+function ProfileRelationsBox(props)
+{
+  return(
+    <ProfileRelationsBoxWrapper>
 
+    <h2 className='smallTitle'>
+      {props.title} ({props.items.length})</h2>
+
+      <ul>
+
+        {/* {seguidores.map((item)=>{
+          return(
+            <li key={item}>
+              <a href={`https://github.com/${item}.png`} key={item}> 
+                <img src = {item} />
+                <span>{item}</span>
+              </a>
+
+              
+            </li>
+            )
+          } 
+        )} */}
+
+
+          
+      </ul>
+
+
+  </ProfileRelationsBoxWrapper>
+  )
+}
 
 
 export default function Home() {
@@ -56,6 +87,21 @@ export default function Home() {
       'peas',
       'felipefialho', 
     ]
+
+    // 0 - PEgar os Arrays de dados
+      const [seguidores, setSeguidores] = React.useState([]);
+
+      React.useEffect(function(){
+
+        fetch('https://api.github.com/users/evtcorreia/following')
+        .then(function(respostaDoServidor){
+          return respostaDoServidor.json();
+        })
+        .then(function(respostaCompleta){
+          setSeguidores(respostaCompleta);
+        })
+
+      }, [])
     return ( 
       <>
         <AlurakutMenu/>
@@ -83,7 +129,9 @@ export default function Home() {
         <Box>
           <h2 className="subTitle">
             O que você deseja fazer?
+            <i className="fa fa-trash" aria-hidden="true"></i>
           </h2>
+          
 
           <form onSubmit={function handleCriaComunidade(e){
             e.preventDefault();
@@ -126,7 +174,14 @@ export default function Home() {
         <div className = "profileRelationsArea"
         style = {{ gridArea: 'profileRelationsArea' }}>
 
+
+        {/*   {seguidores} */}
+
+        <ProfileRelationsBox title="Seguindo" items={seguidores}/>
+
           <ProfileRelationsBoxWrapper>
+
+            <h2 className='smallTitle'>Comunidades ({comunidades.length})</h2>
 
               <ul>
 
