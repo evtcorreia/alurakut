@@ -71,13 +71,7 @@ export default function Home() {
 
 
     const gitHubUser = 'evtcorreia';
-    const [comunidades, setComunidades] =  React.useState([{
-      id: '132165616516565165156165156',
-      title: 'Eu odeio Acordar cedo',
-      image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
-
-    }
-    ]);
+    const [comunidades, setComunidades] =  React.useState([]);
     /* const comunidades = ['AluraKut']; */
     const pessoasFavoritas = [
       'juunegreiros', 
@@ -101,6 +95,32 @@ export default function Home() {
           setSeguidores(respostaCompleta);
         })
 
+        //API GraphQL
+        fetch('https://graphql.datocms.com/', {
+          method: 'POST',
+          headers :{
+            'Authorization': 'c685ab8e4c21c73589ed877194aa34',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({"query": `
+          query {
+            allCommunities {
+              title
+              id
+              imageUrl
+            }
+          }
+          
+          `})
+        })
+        .then((response)=>response.json())
+        .then((respostaCompleta)=>{
+          const comunidades = respostaCompleta.data.allCommunities;
+          setComunidades(comunidades)
+          console.log(comunidades)
+        })
+        
       }, [])
     return ( 
       <>
@@ -188,11 +208,11 @@ export default function Home() {
                 {comunidades.map((item)=>{
                   return(
                     <li key={item.id}>
-                      <a href={`/users/${item.title}`} key={item.title}> 
-                        <img src = {item.image} />
-                        <span>{item.title}</span>
+                      <a href={`/users/${item.title}`} key={item.id}> 
+                        <img src = {item.imageUrl} />
+                        <span>{item.title}</span>                        
                       </a>
-
+                    
                       
                     </li>
                     )
